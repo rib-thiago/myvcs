@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+# ---------------------------------------------------------------
+# Script    : myvcs
+# Descrição : Sistema básico de controle de versões com suporte a
+#              commits, branches, merges, e histórico.
+# Autor     : Seu Nome <seuemail@dominio.com>
+# Data      : 26/07/2024
+# Licença   : 
+# ---------------------------------------------------------------
+# Uso: myvcs [comando] [opções]
+# ---------------------------------------------------------------
+# Comandos disponíveis:
+#   init - Inicializa um novo repositório
+#   add <arquivo> - Adiciona um arquivo ao índice (staging area)
+#   commit -m "<mensagem>" - Cria um commit com a mensagem especificada
+#   status - Mostra o status dos arquivos
+#   branch <nome> - Cria um novo branch
+#   checkout <nome> - Alterna para o branch especificado
+#   merge <nome> - Realiza merge do branch especificado com o branch atual
+#   log - Mostra o histórico de commits
+# ---------------------------------------------------------------
+
+# Função para inicializar um novo repositório
+myvcs_init() {
+    mkdir -p .myvcs/objects .myvcs/refs .myvcs/stage .myvcs/logs
+    echo "master" > .myvcs/.current_branch
+    mkdir -p .myvcs/refs/master
+    touch .myvcs/logs/commits.log
+    echo "Repositório inicializado."
+}
+
+# Função para adicionar arquivos ao índice (staging area)
+myvcs_add() {
+    local file="$1"
+    if [ -f "$file" ]; then
+        cp "$file" ".myvcs/stage/$file"
+        echo "$file adicionado ao estágio."
+    else
+        echo "Arquivo '$file' não encontrado."
+    fi
+}
+
+# Função para criar um commit com uma mensagem
+myvcs_commit() {
+    local message="$1"
+    local hash=$(find .myvcs/stage -type f -exec sha1sum {} + | sha1sum | cut -d ' ' -f 1)
+    mkdir -p ".myvcs/objects/$hash"
+    cp -r .myvcs/stage/* ".myvcs/objects/$hash/"
+    echo "$hash - $message" >> .myvcs/logs/commits.log
+    cp -r .myvcs/stage/* ".myvcs/refs/$(cat .myvcs/.current_branch)/"
+    rm -rf .myvcs/stage/*
+    echo "Commit criado com hash $hash."
+}
+
+# Função para mostrar o status dos arquivos
+myvcs_status() {
+    echo "Status dos arquivos:"
+    for file in $(ls); do
+        if [ -f ".myvcs/refs/$(cat .myvcs/.current_branch)/$file" ]; then
+            if diff -q "$file" ".myvcs/refs/$(cat .myvcs/.current_branch)/$file" > /dev/null; then
+                echo "Sem mudanças: $file"
+            else
+                echo "Modificado: $file"
+            fi
+        else
+            echo "Novo arquivo: $file"
+        fi
+    done
+}
+
+# Função para criar um novo branch
+myvcs_branch() {
+    local branch_name="$1"
+    mkdir -p ".myvcs/refs/$branch_name"
+    cp -r .myvcs/refs/$(cat .myvcs/.current_branch)/* ".myvcs/refs/$branch_name/"
+    echo "Branch '$branch_name' criado."
+}
+
+# Função para alternar entre branches
+myvcs_checkout() {
+    local branch_name="$1"
+    if [ -d ".myvcs/refs/$branch_name" ]; then
+        echo "$branch_name" > .myvcs/.current_branch
+        cp -r .myvcs/refs/$branch_name/* .
+        echo "Alternado para o branch '$branch_name'."
+    else
+        echo "Branch '$branch_name' não existe."
+    fi
+}
+
+# Função para realizar merge entre branches
+myvcs_merge() {
+    local branch_name="$1"
+    if [ -d ".myvcs/refs/$branch_name" ]; then
+        diff3 -m .myvcs/refs/$(cat .myvcs/.current_branch) .myvcs/refs/$branch_name . > merge.patch
+        if patch -p1 < merge.patch; then
+            echo "Merge realizado com sucesso."
+        else
+            echo "Conflitos encontrados durante o merge. Edite os arquivos para resolver os conflitos."
+        fi
+    else
+        echo "Branch '$branch_name' não existe."
+    fi
+}
+
+
+# Função para mostrar o histórico de commits
+myvcs_log() {
+    if [ -f .myvcs/logs/commits.log ]; then
+        echo "Histórico de commits:"
+        cat .myvcs/logs/commits.log
+    else
+        echo "Nenhum commit encontrado."
+    fi
+}
+
+# Verificar número de argumentos
+if [ "$#" -lt 1 ]; then
+    echo "Uso: $0 <comando> <opções>"
+    echo "Comandos disponíveis:"
+    echo "  init - Inicializa um novo repositório"
+    echo "  add <arquivo> - Adiciona um arquivo ao índice (staging area)"
+    echo "  commit -m \"<mensagem>\" - Cria um commit"
+    echo "  status - Mostra o status dos arquivos"
+    echo "  branch <nome> - Cria um novo branch"
+    echo "  checkout <nome> - Alterna para o branch especificado"
+    echo "  merge <nome> - Realiza merge do branch especificado"
+    echo "  log - Mostra o histórico de commits"
+    exit 1
+fi
+
+# Processar comando
+comando="$1"
+shift
+
+case "$comando" in
+    init)
+        myvcs_init "$@"
+        ;;
+    add)
+        myvcs_add "$@"
+        ;;
+    commit)
+        myvcs_commit "$@"
+        ;;
+    status)
+        myvcs_status "$@"
+        ;;
+    branch)
+        myvcs_branch "$@"
+        ;;
+    checkout)
+        myvcs_checkout "$@"
+        ;;
+    merge)
+        myvcs_merge "$@"
+        ;;
+    log)
+        myvcs_log "$@"
+        ;;
+    *)
+        echo "Comando inválido: $comando"
+        exit 1
+        ;;
+esac
