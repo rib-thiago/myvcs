@@ -17,7 +17,7 @@ MyVCS é projetado para proporcionar uma compreensão aprofundada das operaçõe
 - **merge**: Realiza merge de branches.
 - **log**: Exibe o histórico de commits.
 
-## Ferramentas Unix Utilizadas 🛠️
+## Ferramentas Unix Utilizadas 
 
 - **mkdir**: Utilizado para criar diretórios.
 - **cp**: Utilizado para copiar arquivos e diretórios.
@@ -36,7 +36,7 @@ O MyVCS utiliza uma estrutura de diretórios simples para organizar os dados do 
 - `.myvcs/stage`: Área de staging para os arquivos a serem commitados.
 - `.myvcs/logs`: Logs de commits e operações realizadas.
 
-## Funcionamento do Código ⚙️
+## Funcionamento do Código 
 
 ### Inicialização do Repositório
 
