@@ -19,6 +19,7 @@ myvcs_init() {
 # Verificar se o repositório já existe
 if [ -d ".myvcs" ]; then
     echo "Repositório já existe."
+    exit 1
 fi
 
 myvcs_init
