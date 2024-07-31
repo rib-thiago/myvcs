@@ -77,7 +77,7 @@ A função `myvcs_log` exibe o histórico de commits, listando os hashes e as me
 
 - [ ] 4. **Melhorar a Área de Staging**
    - **Remover Arquivos do Staging**: Implementar a capacidade de remover arquivos da área de staging.
-   - **Visualizar o Status do Staging**: Implementar um comando para visualizar o status atual da área de staging.
+   - [x] **Visualizar o Status do Staging**: Implementar um comando para visualizar o status atual da área de staging.
 
 - [ ] 5. **Implementar o Sistema de Remoto**
    - **Clonar Repositórios**: Implementar a capacidade de clonar repositórios.
