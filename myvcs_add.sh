@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#
+# TODO
+
+#
+# criar sistema de loop para poder adicionar
+# mais de um arquivo numa unica chamada ao
+# comando add
+
+# 
+# pesquisar sobre o que `file_hash` está
+# recebendo e para que serve neste contexto
+
 # Função para adicionar arquivos ao staging
 myvcs_add() {
     local file_path="$1"
