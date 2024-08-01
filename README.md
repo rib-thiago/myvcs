@@ -61,40 +61,48 @@ A função `myvcs_log` exibe o histórico de commits, listando os hashes e as me
 
 ## Implementações Futuras 🌟
 
+- [ ] 1. **UX/UI**
+   - [ ] **Paleta de Caracteres de Escape e Controle**: Implementar variaveis que armazenam caracteres de controle e escape para cores, quebra de linha, TAB 
+   - [ ] **Mensagem de Erros**: Implementar a paleta para customizar mensagens
+   - [ ] **Batchs**: Implementar a capacidade de um comando processar multiplos arquivos numa única chamada
 
-- [ ] 1. **Implementar o Sistema de Branches**
-   - **Criar um Novo Branch**: Implementar um comando para criar um novo branch.
-   - **Mudar de Branch**: Implementar um comando para mudar para um branch existente.
-   - **Listar Branches**: Implementar um comando para listar todos os branches.
+- [ ] 2. **O "comando `git`"**
+   - [ ] **wrapper**: implementar um *wrapper* com estrutura `case` onde cada opção é um comando do `myvcs`
+   - [ ] **parser**: Implementar forma de garantir que `$1` seja sempre um comando do `myvcs`
 
-- [ ] 2. **Implementar o Sistema de Merge**
-   - **Merge Básico**: Implementar a capacidade de mesclar branches.
-   - **Resolver Conflitos**: Implementar a lógica para detectar e resolver conflitos durante o merge.
+- [ ] 3. **Implementar o Sistema de Branches**
+   - [ ] **Criar um Novo Branch**: Implementar um comando para criar um novo branch.
+   - [ ] **Mudar de Branch**: Implementar um comando para mudar para um branch existente.
+   - [ ] **Listar Branches**: Implementar um comando para listar todos os branches.
 
-- [ ] 3. **Implementar o Sistema de Tags**
-   - **Criar Tags**: Implementar um comando para criar tags.
-   - **Listar Tags**: Implementar um comando para listar todas as tags.
+- [ ] 4. **Implementar o Sistema de Merge**
+   - [ ] **Merge Básico**: Implementar a capacidade de mesclar branches.
+   - [ ] **Resolver Conflitos**: Implementar a lógica para detectar e resolver conflitos durante o merge.
 
-- [ ] 4. **Melhorar a Área de Staging**
-   - **Remover Arquivos do Staging**: Implementar a capacidade de remover arquivos da área de staging.
+- [ ] 5. **Implementar o Sistema de Tags**
+   - [ ] **Criar Tags**: Implementar um comando para criar tags.
+   - [ ] **Listar Tags**: Implementar um comando para listar todas as tags.
+
+- [ ] 6. **Melhorar a Área de Staging**
+   - [ ] **Remover Arquivos do Staging**: Implementar a capacidade de remover arquivos da área de staging.
    - [x] **Visualizar o Status do Staging**: Implementar um comando para visualizar o status atual da área de staging.
 
-- [ ] 5. **Implementar o Sistema de Remoto**
-   - **Clonar Repositórios**: Implementar a capacidade de clonar repositórios.
-   - **Puxar Alterações**: Implementar a capacidade de puxar alterações de um repositório remoto.
-   - **Enviar Alterações**: Implementar a capacidade de enviar alterações para um repositório remoto.
+- [ ] 7. **Implementar o Sistema de Remoto**
+   - [ ] **Clonar Repositórios**: Implementar a capacidade de clonar repositórios.
+   - [ ] **Puxar Alterações**: Implementar a capacidade de puxar alterações de um repositório remoto.
+   - [ ] **Enviar Alterações**: Implementar a capacidade de enviar alterações para um repositório remoto.
 
-- [ ] 6. **Adicionar Suporte a Arquivos Binários**
-   - **Armazenar Arquivos Binários**: Modificar o sistema para suportar arquivos binários.
-   - **Detectar Arquivos Binários**: Implementar a lógica para detectar e tratar arquivos binários de maneira adequada.
+- [ ] 8. **Adicionar Suporte a Arquivos Binários**
+   - [ ] **Armazenar Arquivos Binários**: Modificar o sistema para suportar arquivos binários.
+   - [ ] **Detectar Arquivos Binários**: Implementar a lógica para detectar e tratar arquivos binários de maneira adequada.
 
-- [ ] 7. **Melhorar a Eficiência e Desempenho**
-   - **Compressão de Objetos**: Implementar a compressão de objetos para economizar espaço.
-   - **Indexação Eficiente**: Melhorar a eficiência da indexação e busca de objetos.
+- [ ] 9. **Melhorar a Eficiência e Desempenho**
+   - [ ] **Compressão de Objetos**: Implementar a compressão de objetos para economizar espaço.
+   - [ ] **Indexação Eficiente**: Melhorar a eficiência da indexação e busca de objetos.
 
-- [ ] 8. **Adicionar Funcionalidades de Histórico**
-   - **Mostrar Diferenças**: Implementar um comando para mostrar diferenças entre commits.
-   - **Histórico Detalhado**: Implementar um comando para exibir um histórico detalhado de commits, incluindo mensagens, autores e datas.
+- [ ] 10. **Adicionar Funcionalidades de Histórico**
+   - [ ] **Mostrar Diferenças**: Implementar um comando para mostrar diferenças entre commits.
+   - [ ] **Histórico Detalhado**: Implementar um comando para exibir um histórico detalhado de commits, incluindo mensagens, autores e datas.
 
 ---
 
